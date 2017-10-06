@@ -5,7 +5,7 @@ import './index.css';
 function Square(props){
   return(
     <button className="square" onClick={props.onClick}>
-      {props.value}
+       {props.value}
     </button>
   );
 }
@@ -17,8 +17,8 @@ class Board extends React.Component {
       <Square 
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
-        />
-      );
+      />
+    );
   }
 
   render() {
@@ -86,12 +86,16 @@ class Game extends React.Component {
     const history = this.state.history
     const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares);
-  
+
     const moves = history.map((step, move) => {
       const desc = move ? 'Go to move #' + move : 'Go to game start';
+      let style = isBolded(this.state.stepNumber, move)
       return(
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button 
+            onClick={() => this.jumpTo(move)}
+            style={style}
+          >{desc}</button>
         </li>
       )
     })
@@ -129,6 +133,16 @@ ReactDOM.render(
   <Game />,
   document.getElementById('root')
 );
+
+function isBolded(step, currentStep){
+  if(step == currentStep){
+    return {
+      color: 'red'
+    }
+  }
+
+  return null;
+}
 
 function getPlacedPosition(placed){
   const post= [
