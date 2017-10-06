@@ -53,6 +53,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      lastMove: null,
     }
   }
   
@@ -70,6 +71,7 @@ class Game extends React.Component {
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
+      lastMove: i
     });
   }
  
@@ -100,6 +102,8 @@ class Game extends React.Component {
     }else{
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
+    
+    let lastMove = getPlacedPosition(this.state.lastMove); 
 
     return (
       <div className="game">
@@ -110,6 +114,7 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
+          <div>{lastMove}</div>
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>
@@ -124,6 +129,24 @@ ReactDOM.render(
   <Game />,
   document.getElementById('root')
 );
+
+function getPlacedPosition(placed){
+  const post= [
+    "(1,1)",
+    "(2,1)",
+    "(3,1)",
+    "(1,2)",
+    "(2,2)",
+    "(3,2)",
+    "(1,3)",
+    "(2,3)",
+    "(3,3)",
+  ]
+  if(placed){
+    return "Last placed: " + post[placed];
+  }
+  return "This is the first move!";
+}
 
 function calculateWinner(squares){
   const lines = [
