@@ -1,4 +1,6 @@
-[Last Part Where I left Off](https://reactjs.org/tutorial/tutorial.html#taking-turns)
+Things to do
+
+Highlight board when win
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
