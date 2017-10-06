@@ -22,25 +22,17 @@ class Board extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
+    const squares = [];
+    let row = [];
+    for(var i = 0; i < 9; i++){
+      row.push(this.renderSquare(i));
+      if(row.length == 3){ 
+        squares.push(<div className="board-row">{row}</div>);
+        row = [];
+      }
+    }
+
+    return (<div>{squares}</div>);
   }
 }
 
@@ -156,7 +148,7 @@ function getPlacedPosition(placed){
     "(2,3)",
     "(3,3)",
   ]
-  if(placed){
+  if(placed != null){
     return "Last placed: " + post[placed];
   }
   return "This is the first move!";
